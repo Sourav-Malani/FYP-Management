@@ -23,7 +23,12 @@ public partial class Committee_Interface : System.Web.UI.Page
 
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+    }
+
+    protected void Continue_Click(object sender, EventArgs e)
     {
         string selecteditem = DropDownList1.SelectedItem.Text;
 
@@ -34,7 +39,7 @@ public partial class Committee_Interface : System.Web.UI.Page
         }
         else if (selecteditem == "Add Faculty")
         {
-            Response.Redirect("FYP_Committee_Interface_Login.aspx");
+            Response.Redirect("AddFaculty.aspx");
         }
         else if (selecteditem == "Create Committee")
         {
@@ -48,7 +53,8 @@ public partial class Committee_Interface : System.Web.UI.Page
 
     }
 
-    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void GoBack_Click(object sender, EventArgs e)
     {
+        Response.Redirect("Default.aspx");
     }
 }

@@ -78,7 +78,7 @@
         <div>
         </div>
         <p>
-            WELLCOME, DEAR <br>
+            WELLCOME, DEAR Committee Member<br>
         
             Choose the action you want to perform:<asp:DropDownList ID="DropDownList1" runat="server" CssClass="auto-style1" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                 <asp:ListItem>Add Student</asp:ListItem>
@@ -88,8 +88,12 @@
                 <asp:ListItem></asp:ListItem>
             </asp:DropDownList>
         
+            
+        
             <br><br> 
-            <asp:Button ID="Button1" runat="server" Text="Button"  class="lgnbtn" OnClick="Button1_Click" Width="157px" />
+            <asp:Button ID="Button1" runat="server" Text="Continue"  class="lgnbtn" OnClick="Continue_Click" Width="157px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back"  class="cnbtn" OnClick="GoBack_Click" Width="157px" />
+
             <br>
             
         </p>

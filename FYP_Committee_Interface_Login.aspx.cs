@@ -31,20 +31,29 @@ public partial class FYP_Committee_Interface_Login : System.Web.UI.Page
         String facultyPassword = txt_password.Text;
 
         con.Open();
-        SqlCommand cmd = new SqlCommand("Select distinct F.facultyName from Faculty F inner join FYP_Committee_Member C ON F.facultyID = C.M_ID", con);
-        //cmd.Parameters.AddWithValue("@rollno", txt_Username.Text);
-        //cmd.Parameters.AddWithValue("@password", txt_password.Text);
+        SqlCommand cmd = new SqlCommand("Select distinct F.facultyName from Faculty F inner join FYP_Committee_Member C ON F.facultyID = C.M_ID " +
+                                        "where F.facultyID = @facultyID and F.facultypassword = @password;", con);
+        cmd.Parameters.AddWithValue("@facultyID", txt_Username.Text);
+        cmd.Parameters.AddWithValue("@password", txt_password.Text);
 
-     //faulty who is also an FYP member
-     // Select distinct F.facultyName from Faculty F inner join FYP_Committee_Member C ON F.facultyID = C.M_ID
+        //faulty who is also an FYP member
+    //    // Select distinct F.facultyName from Faculty F inner join FYP_Committee_Member C ON F.facultyID = C.M_ID
+   
+        
+        //    Select distinct F.facultyName
+    //    from Faculty F
+    //inner join FYP_Committee_Member C
+    //ON F.facultyID = C.M_ID
 
+    //where F.facultyID = 'hassa.mustafa';
 
         SqlDataReader sdr = cmd.ExecuteReader();
-
+        //String str= sdr.GetString(0);
+        String str = sdr.ToString();
 
         if (facultyUsername == "" || facultyPassword == "")
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "emptyValue()", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "EmptyValue()", true);
         }
         else
         {

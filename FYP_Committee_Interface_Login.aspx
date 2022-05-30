@@ -90,11 +90,11 @@
                 'error'
             )
         }
-        function AllSet() {
+        function EmptyValue() {
             Swal.fire(
-                'Data added.',
-                'You can go back.',
-                'success'
+                'Oops.',
+                'Fields empty',
+                'error'
             )
 
         }
