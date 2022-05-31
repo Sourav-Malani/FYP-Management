@@ -11,4 +11,24 @@ public partial class Panel_PanelLogin : System.Web.UI.Page
     {
 
     }
+
+    protected void txt_Username_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void txt_password_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btn_Login_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btn_cancel_Click2(object sender, EventArgs e)
+    {
+
+    }
 }
