@@ -30,12 +30,12 @@ public partial class _Default : System.Web.UI.Page
       
         if(role == "STUDENT")
         {
-            Response.Redirect("StudentLogin.aspx");
+            Response.Redirect("Student/StudentLogin.aspx");
 
         }
         else if (role == "COMMIT. MEMBER")
         {
-            Response.Redirect("FYP_Committee_Interface_Login.aspx");
+            Response.Redirect("FYP Committee/FYP_Committee_Interface_Login.aspx");
         }
         else if (role == "SUPERVISOR")
         {
