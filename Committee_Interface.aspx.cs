@@ -37,6 +37,10 @@ public partial class Committee_Interface : System.Web.UI.Page
             Response.Redirect("AddStudent.aspx");
 
         }
+        else if (selecteditem == "View Students in FYP1")
+        {
+            Response.Redirect("StudentsRegesteredInFyp1.aspx");
+        }
         else if (selecteditem == "Add Faculty")
         {
             Response.Redirect("AddFaculty.aspx");

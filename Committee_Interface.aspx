@@ -85,7 +85,7 @@
                 <asp:ListItem>Add Faculty</asp:ListItem>
                 <asp:ListItem>Create Committee</asp:ListItem>
                 <asp:ListItem>Make a Panel</asp:ListItem>
-                <asp:ListItem></asp:ListItem>
+                <asp:ListItem>View Students in FYP1</asp:ListItem>
             </asp:DropDownList>
         
             
