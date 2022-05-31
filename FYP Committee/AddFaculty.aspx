@@ -79,7 +79,7 @@
         }
     </style>
 
-    <script src ="swalert.js" type="text/javascript"> </script>
+    <script src ="../swalert.js" type="text/javascript"> </script>
     <script>
         function emptyValue() {
             Swal.fire(

@@ -28,7 +28,7 @@ public partial class StudentLogin : System.Web.UI.Page
 
     protected void btn_cancel_Click1(object sender, EventArgs e)
     {
-        Response.Redirect("Default.aspx");
+        Response.Redirect("~\\Default.aspx");
     }
 
     protected void btn_Login_Click1(object sender, EventArgs e)

@@ -21,7 +21,7 @@ public partial class FYP_Committee_Interface_Login : System.Web.UI.Page
     }
     protected void btn_cancel_Click2(object sender, EventArgs e)
     {
-        Response.Redirect("Default.aspx");
+        Response.Redirect("~\\Default.aspx");
     }
 
     protected void btn_Login_Click(object sender, EventArgs e)

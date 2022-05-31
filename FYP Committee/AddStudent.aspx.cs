@@ -47,7 +47,7 @@ public partial class AddStudent : System.Web.UI.Page
 
     protected void btn_cancel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Default.aspx");
+        Response.Redirect("Committee_Interface.aspx");
     }
 
 

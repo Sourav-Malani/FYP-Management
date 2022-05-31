@@ -39,11 +39,11 @@ public partial class _Default : System.Web.UI.Page
         }
         else if (role == "SUPERVISOR")
         {
-            Response.Redirect(".aspx");
+            Response.Redirect("Project Supervisors/SupervisorLogin.aspx");
         }
         else if (role == "PANEL MEMBER")
         {
-            Response.Redirect(".aspx");
+            Response.Redirect("Panel Members/PanelLogin.aspx");
         }
 
 
