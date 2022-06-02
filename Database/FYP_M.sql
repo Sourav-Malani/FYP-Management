@@ -3,39 +3,32 @@ use FYP_M;
 create table Faculty(
 	facultyName varchar (30) not null,
     facultyID    varchar (30) primary key, -- id is also username
-	--facultyDesignation  varchar (15),
-  -- facultyUsername  varchar(20) NOT NULL,
     facultypassword  varchar(30) NOT NULL,
 	facultyGender varchar(7) default  null
-    --isCoordinator varchar(10) default null,
 );
-
 -- insert into Faculty values('Hassan Mustafa','hassan.mustafa','Mustafa@123','Male');
 select * from Faculty;
-
+-- insert more faculty...
 
 create table FYP_Committee_Member(
       M_ID varchar (30) foreign key references Faculty(facultyID),  
 );
-
-
-
-
-drop table FYP_Committee_Member;
-
+-- drop table FYP_Committee_Member;
 select * from FYP_Committee_Member;
-    --Select distinct W.First_Name, T.Worker_Title
-    --from Worker W
-    --INNER JOIN Title T
-    --ON W.WORKER_ID = T.WORKER_REF-ID
-    --AND T.WORKER_TITLE IN ('Manager');
+
+--Select distinct W.First_Name, T.Worker_Title
+--from Worker W
+--INNER JOIN Title T
+--ON W.WORKER_ID = T.WORKER_REF-ID
+--AND T.WORKER_TITLE IN ('Manager');
 
 	-- faulty who is also an FYP member
-    Select distinct F.facultyName
-    from Faculty F
-    inner join FYP_Committee_Member C
-    ON F.facultyID = C.M_ID
-	where F.facultyID = 'hassan.mustafa' and F.facultypassword = 'Mustafa@123';
+ --   Select distinct F.facultyName
+ --   from Faculty F
+ --   inner join FYP_Committee_Member C
+ --   ON F.facultyID = C.M_ID
+	--where F.facultyID = 'hassan.mustafa' and F.facultypassword = 'Mustafa@123';
+
 
 insert into FYP_Committee_Member values
 ('hassan.mustafa');
@@ -49,49 +42,45 @@ insert into FYP_Committee_Member values
 create table student(
 	studentName      varchar (40) not null,
     studentRollNo    varchar (30) primary key,
-    --studentUsername  varchar(20) NOT NULL,
     studentPassword  varchar(30) NOT NULL,
     studentGender    varchar(7) default NULL,
-	-- groupId          varchar(10) references studentGroup(groupID),
---	isLeader         int DEFAULT NULL,
-    -- createdDtm datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 insert into student values ('Masroor Ahmed','i19-0498','Mas@123','Male');
 insert into student values ('Aftab Ali','i19-0466','Aftab@123','Male');
-
 insert into student values ('Nayyar Malik','i19-0528','Nayyar@123','Male');
 insert into student values ('Ahsan Qamar','i19-2048','Ahsan@123','Male');
-
 select * from student;
+-- add a whole lot of students.
 
 
 create table supervisors(
     supervisorID varchar(30) foreign key references Faculty(facultyID) unique,
 	sWorkLoad int default null,
-	CHECK (sWorkLoad<=6 and sWorkLoad>=0)
+	CHECK (sWorkLoad<=6 and sWorkLoad>=0),
+    reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
-
 drop table supervisors;
 select * from supervisors;
 
 insert into supervisors (supervisorID,sWorkLoad) values ('hassan.mustafa',5);
 insert into supervisors values ('urooj.ghani',6);
 
--- show supervisor names with their ids.
-select * from supervisors;
+
 
 create table co_supervisors(
     co_supervisorID varchar(30) foreign key references Faculty(facultyID) unique,
 	csWorkLoad int default null,
-	CHECK (csWorkLoad<=6 and csWorkLoad>=0)
+	CHECK (csWorkLoad<=6 and csWorkLoad>=0),
+    reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
+drop table co_supervisors;
 -- show co_supervisor names with their ids.
 select * from co_supervisors;
 
 
+-- Query 01
 -- see (students registered in FYP I, their group members, supervisors, project details)
-
 create table studentGroup(
     groupID int IDENTITY(1,1) primary key ,
     Member1rollNo varchar(30) foreign key references student(studentRollNo) default NULL, -- member 1
@@ -102,7 +91,8 @@ create table studentGroup(
 	projectTitle varchar(100) not null,
 	projectDetails varchar (500) default NULL
 );
--- drop table studentGroup;
+
+drop table studentGroup;
 
 insert into studentGroup(Member1rollNo,Member2rollNo,supervID,projectTitle) values ('i19-0434','i19-0498','urooj.ghani','Indoor Navigation');
 
@@ -112,32 +102,41 @@ select * from studentGroup; -- Write an query to also show names of the students
 
 
 
-select sg.Member1rollNo,S.studentName,Member2rollNo,S.studentName,sg.Member3rollNo,sg.supervID,sg.projectTitle from student S
-inner join studentGroup SG ON S.studentRollNo = SG.Member1rollNo
 
 create table FYP1(
+     FYP1_ID int IDENTITY(1,1) primary key, 
      groupID int foreign key references studentGroup(groupID),
 	 submitedOrnot int default 0,  -- 0 means No, 1 means Yes.
 	 evaluatedORnot int default 0,   -- 0 means No, 1 means Yes.
 	 grade varchar(10) default NULL,
-	 deadline SMALLDATETIME
+     reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
-
-
-
+select * from FYP1;
 drop table FYP1;
 
-create table evaluation(
-      
-      EgroupID int foreign key references FYP1(groupID)   
+
+create table deadline(
+     D_ID int foreign key references FYP1(FYP1_ID),
+	 deadlineTime SMALLDATETIME
 );
+drop table deadline;
+-- considering panel has 3 members.
+create table panel(
+    PanelID varchar(20) primary key,
+    PanelMember1ID varchar(30) foreign key references Faculty(facultyID) not null, -- Panel  member 1
+	PanelMember2ID varchar(30) foreign key references Faculty(facultyID) default NULL, -- Panel  member 2
+	PanelMember3ID varchar(30) foreign key references Faculty(facultyID) default NULL, -- Panel  member 3
+    Group_Assigned int foreign key references studentGroup(groupID)
+);
+drop table panel;
+select * from panel;
 
 create table PanelMember(
-      P_ID varchar (30) foreign key references Faculty(facultyID), 
-	  FYP_Assigned int foreign key references FYP1(groupID)
+      PM_ID varchar (30) foreign key references Faculty(facultyID), 
+	  Panel_ID varchar(20) foreign key references panel(PanelID), -- Panel Assigned.
 );
-
-
+drop table PanelMember 
+Select * from PanelMember;
 
 insert into FYP1(groupID) values (1);
 select * from FYP1;
@@ -194,8 +193,16 @@ select * from Faculty;
 select * from supervisors;
 select * from studentGroup;
 select * from FYP1;
+select * from panel;
 
 select * from student where studentRollNo = 'i19-0434' and studentPassword = 'Malani95@';
+
+
+create table reviewsORsuggestions(
+      reviewID int IDENTITY(1,1) primary key,
+	  review varchar(500),
+	  givenORnot int default 0 -- 0 for not given 1 for given.
+);
 
 create table studentEvaluation(
      E_ID int foreign key references studentGroup(groupID),     
@@ -214,10 +221,14 @@ create table studentEvaluation(
 	 c13 int CHECK (c13<=10 and c13>=0),
 	 c14 int CHECK (c14<=10 and c14>=0),
 	 c15 int CHECK (c15<=10 and c15>=0),
-	 reviewOrSuggestions varchar (500),
+	 reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
 
-insert into studentEvaluation()
+drop table studentEvaluation;
+-- FYPs can have reviews and also supervisors & co-supervisors.
+
+
+--insert into studentEvaluation();
 -- panel
 
 

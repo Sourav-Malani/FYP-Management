@@ -10,11 +10,13 @@
             background-image:url(img/background2.jpg);
             height:70%;
             width: 70%;
+            background-repeat: no-repeat;
         }
         .auto-style2 {
             background-image: url('img/background2.jpg');
             height: 70%;
             width: 70%;
+            background-repeat: no-repeat;
         }
     </style>
 
