@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 
 <head runat="server">
-    <title>Add Student Form</title>
+    <title>Add Faculty Form</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <style>
@@ -179,7 +179,7 @@
             <asp:TextBox runat="server" ID="txt_facultyName" placeholder="Full Name*" OnTextChanged="txt_facultyName_TextChanged"></asp:TextBox>
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox runat="server" ID="txt_facultyID" placeholder="facultyID* (e.g: i19-1234)" OnTextChanged="txt_facultyID_TextChanged"></asp:TextBox>
+            <asp:TextBox runat="server" ID="txt_facultyID" placeholder="facultyID* (e.g: Ahmed.azhar)" OnTextChanged="txt_facultyID_TextChanged"></asp:TextBox>
 <%--            <asp:TextBox runat="server" ID="tex_facultyUsername" placeholder="Username*" OnTextChanged="tex_facultyUsername_TextChanged"></asp:TextBox>--%>
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

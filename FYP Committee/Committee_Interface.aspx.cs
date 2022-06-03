@@ -47,7 +47,7 @@ public partial class Committee_Interface : System.Web.UI.Page
         }
         else if (selecteditem == "Create Committee")
         {
-            Response.Redirect(".aspx");
+            Response.Redirect("Create Committee.aspx");
         }
         else if (selecteditem == "Make a Panel")
         {

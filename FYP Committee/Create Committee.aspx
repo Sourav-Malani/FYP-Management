@@ -1,13 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddStudent.aspx.cs" Inherits="AddStudent" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Create Committee.aspx.cs" Inherits="FYP_Committee_Create_Committee" %>
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
 <!DOCTYPE html>
 
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Add Student Form</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Committee</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -145,53 +142,73 @@
             margin-block:20px;
         }
     </style>
-
-    <script src ="../swalert.js" type="text/javascript"> </script>
-    <script>
-        function emptyValue() {
-            Swal.fire(
-                'Some Fields Empty!',
-                'Please Fill all the fields!',
-                'error'
-            )
+    <style>
+        .select{
+            padding:8px 12px;
+            color:#333333;
+            
+            border: 1px solid #808080;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 110px;
         }
-        function AllSet() {
-            Swal.fire(
-                'Data added.',
-                'You can go back.',
-                'success'
-            )
+        .select:focus,
+        .select:hover{
+            outline:none;
+            border: 1px solid #bbbbbb;
         }
-    </script>
+        .select option{
+            background: white;
+        }
+        .auto-style2 {
+            border-style: none;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #0C64F7;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0 8px 37px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .auto-style3 {
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 8px;
+            border-style: none;
+            border-color: inherit;
+            border-width: medium;
+            margin-left: 30;
+            margin-right: 0;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding: 14px 20px;
+            background-color: #808080;
+        }
+    </style>
 </head>
-    <%--  --%>
-<body>
-    <form id="form1" runat="server" class="form-wrap">
+    <body>
+        <form id="form1" runat="server" class="form-wrap">
+        <div>
+            <h2>Select a Faculty member to make him/her part of FYP Committee </h2>
+        </div> 
+            <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="FacultyMembers" DataTextField="Faculty Member" DataValueField="Faculty Member" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" class="select" Width="242px" >
+                <asp:ListItem Value="Not Selected">Faculty Members</asp:ListItem>
+                <asp:ListItem></asp:ListItem>
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="FacultyMembers" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="-- Faculty members not in FYP Committee.
+SELECT facultyID as 'Faculty Member'
+FROM Faculty
+WHERE facultyID NOT IN
+     (SELECT M_ID 
+     FROM FYP_Committee_Member)
+" OnSelecting="FacultyMembers_Selecting"></asp:SqlDataSource>
+            <br />
+            <br />
+            <asp:Button ID="Button1" runat="server" Text="Add" CssClass="auto-style2" OnClick="Button1_Click" Width="188px" />
+            <asp:Button ID="Button2" runat="server" Text="Cancel" CssClass="auto-style3"  OnClick="Button2_Click" Width="188px" />
 
-        <div class="container">
-            <center>
-                <h3>Enter student details </h3>
-            </center>
-<%--            <label for="fname"><b>firstname</b></label>--%>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox runat="server" ID="txt_fullname" placeholder="Full Name*" OnTextChanged="txt_fullname_TextChanged"></asp:TextBox>
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox runat="server" ID="txt_rollno" placeholder="rollNo* (e.g: i19-1234)" OnTextChanged="txt_rollno_TextChanged"></asp:TextBox>
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox runat="server" ID="txt_password" placeholder="Pass word*" OnTextChanged="txt_password_TextChanged"></asp:TextBox>
-            <br/>
-            <asp:RadioButtonList ID="RadioButtonList2" runat="server"  OnSelectedIndexChanged="GenderStudent_SelectedIndexChanged">
-                <asp:ListItem Value="Male">Male</asp:ListItem>
-                <asp:ListItem Value="Female">Female</asp:ListItem>
-            </asp:RadioButtonList>
-            <br/>
-<%--            <label for="psw"><b>Password</b></label>
-            <asp:TextBox runat="server" ID="txt_password" TextMode="Password" placeholder="Enter Password"></asp:TextBox>--%>
-            <asp:Button runat="server" ID="btn_addStudent" CssClass="sgnbtn" Text="Add student" OnClick="btn_addStudent_Click" />
-            <asp:Button runat="server" ID="btn_cancel" Text="Cancel" class="cnbtn" OnClick="btn_cancel_Click" />
-        </div>
-    </form>
-</body>
+        </form>
+    </body>
 </html>
