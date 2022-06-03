@@ -14,8 +14,7 @@
         body{
             background:#33F2FF;
             font-family:'Sans Serif Collection';
-            background-image: url(http://localhost:61699/img/pexels-pixabay-159711.jpg);
-
+          /*background-image: url(http://localhost:61699/img/pexels-pixabay-159711.jpg);*/
         }
         .form-wrap{
             width:500px;

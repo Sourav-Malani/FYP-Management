@@ -66,8 +66,14 @@ public partial class AddFaculty : System.Web.UI.Page
             cm = new SqlCommand(query, con);
             cm.ExecuteNonQuery();
             cm.Dispose();
-            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "AllSet()", true);
 
+            txt_facultyName.Text = string.Empty;
+            txt_facultyID.Text = string.Empty;
+            txt_facultypassword.Text = string.Empty;
+            RadioButtonList1.Items.Clear();
+
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "AllSet()", true);
+            
         }
         con.Close();
     }
