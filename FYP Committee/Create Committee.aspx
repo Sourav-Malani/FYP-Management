@@ -150,7 +150,13 @@
             border: 1px solid #808080;
             cursor: pointer;
             border-radius: 5px;
-            margin-left: 110px;
+            width: 150px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            margin-left: 90px;
+            margin-top: -100px; 
+            
         }
         .select:focus,
         .select:hover{
@@ -160,54 +166,75 @@
         .select option{
             background: white;
         }
+
+        .auto-style1 {
+            height: 165px;
+        }
+
         .auto-style2 {
-            border-style: none;
-            border-color: inherit;
-            border-width: medium;
-            background-color: #0C64F7;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0 8px 37px;
-            cursor: pointer;
-            border-radius: 8px;
+            margin-top: 0;
         }
         .auto-style3 {
             color: white;
             cursor: pointer;
-            width: 100%;
             border-radius: 8px;
             border-style: none;
             border-color: inherit;
             border-width: medium;
-            margin-left: 30;
+            margin-left: 28px;
             margin-right: 0;
             margin-top: 8px;
             margin-bottom: 8px;
             padding: 14px 20px;
             background-color: #808080;
         }
+        .auto-style4 {
+            border-style: none;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #0C64F7;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
     </style>
+
+    <script src ="../swalert.js" type="text/javascript"> </script>
+    <script>
+    function emptyValue() {
+        Swal.fire(
+            'Some Fields Empty!',
+            'Please Fill all the fields!',
+            'error'
+        )
+    }
+    function AllSet() {
+        Swal.fire(
+            'Data added.',
+            'You can go back.',
+            'success'
+        )
+    }
+    </script>
 </head>
     <body>
         <form id="form1" runat="server" class="form-wrap">
         <div>
-            <h2>Select a Faculty member to make him/her part of FYP Committee </h2>
+            <h2 class="auto-style1">Select a Faculty member to make him/her part of FYP Committee </h2>
         </div> 
-            <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="FacultyMembers" DataTextField="Faculty Member" DataValueField="Faculty Member" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" class="select" Width="242px" >
-                <asp:ListItem Value="Not Selected">Faculty Members</asp:ListItem>
-                <asp:ListItem></asp:ListItem>
+            <br />
+            <p class="auto-style2">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:DropDownList ID="DropDownList2" runat="server"  OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged1" class="select" >
             </asp:DropDownList>
-            <asp:SqlDataSource ID="FacultyMembers" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="-- Faculty members not in FYP Committee.
-SELECT facultyID as 'Faculty Member'
-FROM Faculty
-WHERE facultyID NOT IN
-     (SELECT M_ID 
-     FROM FYP_Committee_Member)
-" OnSelecting="FacultyMembers_Selecting"></asp:SqlDataSource>
+                </p>
             <br />
-            <br />
-            <asp:Button ID="Button1" runat="server" Text="Add" CssClass="auto-style2" OnClick="Button1_Click" Width="188px" />
-            <asp:Button ID="Button2" runat="server" Text="Cancel" CssClass="auto-style3"  OnClick="Button2_Click" Width="188px" />
+            <asp:Button ID="Button1" runat="server" Text="Add" CssClass="auto-style4" OnClick="Button1_Click" Width="191px" />
+
+            <asp:Button ID="Button2" runat="server" Text="Cancel" CssClass="auto-style3"  OnClick="Button2_Click" Width="200px" />
 
         </form>
     </body>
