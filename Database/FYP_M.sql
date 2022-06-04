@@ -8,26 +8,7 @@ create table Faculty(
 );
 insert into Faculty values('Hassan Mustafa','hassan.mustafa','Mustafa@123','Male');
 select * from Faculty;
-insert into Faculty values
-('Hassan Mujtaba','hassan.mujtaba','hassanmujtaba@123','Male'),
-('Aftab Maroof','aftab.maroof','aftab.maroof@123','Male'),
-('Muhammad Aleem','muhammad.aleem','muhammadaleem@123','Male'),
-('Uzair Khan','uzair.khan','uzairkhan@123','Male'),
-('Ejaz Ahmed','ejaz.ahmed','ejazahmed@123','Male'),
-('Kashif Munir','kashif.muneer','kashifmuneer@123','Male'),
-('Labiba Fahad','labiba.fahad','labibafahad@123','Female'),
-('Amna Irum','amna.irum','amnairum@123','Female'),
-('Khubaib Amjad','khubaib.amjad','khubaibamjad@123','Male'),
-('Adnan Tariq','adnan.tariq','adnantariq@123','Male'),
-('Omer Ishaq','omer.ishaq','omer.ishaq@123','Male'),
-('Shujaat Hussain','shujaat.hussain','shujaathussain@123','Male'),
-('Mehreen Alam','mehreen.alam','mehreenalam@123','Female'),
-('Amna Basharat','amna.basharat','amnabasharat@123','Female'),
-('Saba Rasheed','saba.rasheed','sabarasheed@123','Female'),
-('Faisal Cheema','Faisal.Cheema','faisalcheema@123','Male'),
-('Subhan Ullah','subhan.ullah','subhanullah@123','Male'),
-('Zainab Abaid','zainab.abaid','zainababaid@123','Female'),
-('Mudassar Aslam','mudassar.aslam','mudassaraslam@123','Male')
+
 
 delete from Faculty where facultyID='i20-0689';
 -- insert more faculty...
@@ -35,7 +16,7 @@ delete from Faculty where facultyID='i20-0689';
 create table FYP_Committee_Member(
       M_ID varchar (30) foreign key references Faculty(facultyID) unique,  
 );
-drop table FYP_Committee_Member;
+-- drop table FYP_Committee_Member;
 select * from FYP_Committee_Member;
 
 --SELECT FYPM.M_ID
@@ -51,6 +32,7 @@ select * from FYP_Committee_Member;
 SELECT * from Faculty;
 select * from FYP_Committee_Member;
 insert into FYP_Committee_Member values('adnan.tariq');
+
 -- Faculty members not in FYP Committee. -- (1)
 SELECT facultyID
 FROM Faculty
@@ -71,18 +53,7 @@ insert into FYP_Committee_Member values
 ('urooj.ghani');
 
 
---Select distinct W.First_Name, T.Worker_Title
---from Worker W
---INNER JOIN Title T
---ON W.WORKER_ID = T.WORKER_REF-ID
---AND T.WORKER_TITLE IN ('Manager');
 
-	-- faulty who is also an FYP member
- --   Select distinct F.facultyName
- --   from Faculty F
- --   inner join FYP_Committee_Member C
- --   ON F.facultyID = C.M_ID
-	--where F.facultyID = 'hassan.mustafa' and F.facultypassword = 'Mustafa@123';
 
 create table student(
 	studentName      varchar (40) not null,
@@ -95,6 +66,7 @@ insert into student values ('Masroor Ahmed','i19-0498','Mas@123','Male');
 insert into student values ('Aftab Ali','i19-0466','Aftab@123','Male');
 insert into student values ('Nayyar Malik','i19-0528','Nayyar@123','Male');
 insert into student values ('Ahsan Qamar','i19-2048','Ahsan@123','Male');
+
 select * from student;
 -- add a whole lot of students.
 
@@ -105,23 +77,25 @@ create table reviewsORsuggestions(
 );
 SELECT * FROM reviewsORsuggestions;
 
+insert into reviewsORsuggestions(review,givenORnot) values ('Good Performance',1);
+
 create table supervisors(
     supervisorID varchar(30) foreign key references Faculty(facultyID) unique,
-	sWorkLoad int default null,
+	sWorkLoad int default 0,
 	CHECK (sWorkLoad<=6 and sWorkLoad>=0),
     reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
 drop table supervisors;
 select * from supervisors;
 
-insert into supervisors (supervisorID,sWorkLoad) values ('hassan.mustafa',5);
-insert into supervisors (supervisorID,sWorkLoad) values ('urooj.ghani',6);
+insert into supervisors (supervisorID) values ('hassan.mustafa');
+insert into supervisors (supervisorID) values ('urooj.ghani');
 
 
 
 create table co_supervisors(
     co_supervisorID varchar(30) foreign key references Faculty(facultyID) unique,
-	csWorkLoad int default null,
+	csWorkLoad int default 0,
 	CHECK (csWorkLoad<=6 and csWorkLoad>=0),
     reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID)
 );
@@ -138,14 +112,14 @@ create table studentGroup(
     Member1rollNo varchar(30) foreign key references student(studentRollNo) default NULL, -- member 1
 	Member2rollNo varchar(30) foreign key references student(studentRollNo) default NULL, -- member 2
 	Member3rollNo varchar(30) foreign key references student(studentRollNo) default NULL, -- member 3
-	supervID  varchar(30) foreign key references supervisors(supervisorID),
+	supervID  varchar(30) foreign key references supervisors(supervisorID) default NULL,
     co_supervID  varchar(30) foreign key references co_supervisors(co_supervisorID) default NULL,
 	projectTitle varchar(100) not null,
 	projectDetails varchar (500) default NULL
 );
 
 drop table studentGroup;
-select * from student;
+select * from studentGroup;
 
 insert into studentGroup(Member1rollNo,Member2rollNo,supervID,projectTitle) values ('i19-0434','i19-0498','urooj.ghani','Indoor Navigation');
 
@@ -153,9 +127,6 @@ insert into studentGroup(Member1rollNo,Member2rollNo,supervID,projectTitle) valu
 
 select * from studentGroup; -- Write an query to also show names of the students.
 
--- Groups without any supervisors
-select groupID FROM
-WHERE (co_supervID IS NULL) 
 
 
 
@@ -168,8 +139,17 @@ create table FYP1(
      reviewOrSuggestion int foreign key references reviewsORsuggestions(reviewID),
 );
 
-select * from FYP1;
+
+-- we have rollNO, we need groupNo as string.
+
+
 drop table FYP1;
+
+UPDATE FYP1
+SET reviewOrSuggestion = 1
+WHERE FYP1_ID = 1;
+
+
 insert into FYP1(groupID) values(1);
 insert into FYP1(groupID) values(2);
 
@@ -197,22 +177,29 @@ insert into PanelMember values
 ('irum.inayat'),
 ('muhammad.asim'),
 ('naveed.ahmed');
+insert into PanelMember values ('hammad.majeed');
+insert into PanelMember values ('hassan.mustafa');
+insert into PanelMember values ('irum.inayat'),
+								('muhammad.asim'),
+								('naveed.ahmed');
 
 create table panel(
     PanelID int primary key identity(1,1),
-    PanelMember1ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 1
-	PanelMember2ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 2
-	PanelMember3ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 3
-    PanelMember4ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 1
-	PanelMember5ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 2
-	PanelMember6ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 3
-    Group_Assigned int foreign key references studentGroup(groupID)
+    PanelMember1ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 1
+	PanelMember2ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 2
+	PanelMember3ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 3
+    PanelMember4ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 1
+	PanelMember5ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 2
+	PanelMember6ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL , -- Panel  member 3
+    Group_Assigned int foreign key references studentGroup(groupID) unique
 );
 drop table panel;
+select * from panel;
 
-INSERT INTO PANEL
+INSERT INTO panel
 (PanelMember1ID,PanelMember2ID,PanelMember3ID,PanelMember4ID,PanelMember5ID,PanelMember6ID,Group_Assigned)
 VALUES('ahmedraza.shahid','hammad.majeed','hassan.mustafa','irum.inayat','muhammad.asim','naveed.ahmed',1);
+
 select * from panel;
 
 INSERT INTO PANEL
@@ -344,9 +331,66 @@ create table studentEvaluation(
 drop table studentEvaluation;
 -- FYPs can have reviews and also supervisors & co-supervisors.
 
+insert into supervisors(supervisorID) values ('urooj.ghani');
+-- supervisor available (i.e: whose work load is <6)
+select supervisorID
+FROM supervisors
+Where (sWorkLoad<6)
 
 
+alter table supervisors
 
+drop table supervisors;
+
+select * from supervisors;
 
 
 	
+-- show sgroup members (with whom student is working on FYP), project title/description (on which project
+-- is working), supervisor (who is supervising their project). The students can see the panels to 
+-- which they are assigned that panel will evaluate their FYP
+
+-- details of a specific student, registered in FYP.
+create procedure getStudentData
+@sp varchar(30)
+as
+SELECT SG.groupID,
+       SG.Member1rollNo,S1.studentName as 'Member 1',
+	   SG.Member2rollNo, S2.studentName as 'Member 2',
+	   SG.Member3rollNo, S3.studentName as 'Member 3',
+	   SG.supervID, SN.facultyName as 'Supervisor Name',
+	   SG.co_supervID, CSN.facultyName as 'Co_Supervisor',
+	   SG.projectTitle as 'Project Title',
+	   SG.projectDetails as 'Project Desc.',
+	   PA.PanelID as 'Panel ID',
+	   D.deadlineTime as 'Deadline'
+FROM FYP1 FYP1
+    LEFT OUTER JOIN studentGroup SG ON (FYP1.groupID = SG.groupID) 
+    LEFT OUTER JOIN supervisors SV ON SG.supervID  = SV.supervisorID
+    LEFT OUTER JOIN Faculty SN ON   SG.supervID= SN.facultyID
+    LEFT OUTER JOIN Faculty CSN ON   SG.co_supervID= CSN.facultyID
+    LEFT OUTER JOIN student S1 ON SG.Member1rollNo  = S1.studentRollNo
+    LEFT OUTER JOIN student S2 ON SG.Member2rollNo  = S2.studentRollNo
+    LEFT OUTER JOIN student S3 ON SG.Member3rollNo  = S3.studentRollNo
+    LEFT OUTER JOIN panel PA ON SG.groupID  = PA.Group_Assigned
+    LEFT OUTER JOIN deadline D ON FYP1.FYP1_ID  = D.D_ID
+
+Where Member1rollNo = @sp or Member2rollNo = @sp or Member3rollNo = @sp 
+Go
+
+
+-- Show review of a student, given roll NO
+create procedure getStudentReview
+@sp varchar(30)
+as
+select FYP1_ID,projectTitle,review
+FROM FYP1 f
+INNER JOIN reviewsORsuggestions R ON R.reviewID = F.reviewOrSuggestion
+INNER JOIN studentGroup sg ON sg.groupID = f.groupID
+Where sg.Member1rollNo = @sp  or sg.Member2rollNo = @sp or sg.Member3rollNo = @sp 
+GO
+
+--drop procedure getStudentData
+declare @sp varchar(30)
+set @sp = 'i19-0434'
+exec getStudentData 'i19-0434'
