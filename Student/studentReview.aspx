@@ -1,14 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="StudentLogin.aspx.cs" Inherits="StudentLogin" %>
-
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="studentReview.aspx.cs" Inherits="Student_studentReview" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Login Form</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Review</title>
    <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -134,27 +130,12 @@
             margin-block:20px;
         }
     </style>
-    
-
 </head>
 <body>
-    <form id="form1" runat="server"  class="form-wrap">
-
-        <div class="container">
-            <center>
-                <h3>Student Login </h3>
-            </center>
-            <label for="uname"><b>Username&nbsp;&nbsp;&nbsp;&nbsp; </b></label>&nbsp;<asp:TextBox runat="server" ID="txt_Username" placeholder="Enter Username" OnTextChanged="txt_Username_TextChanged1"></asp:TextBox>
-            <label for="psw"><b>
-            <br />
-            Password&nbsp;&nbsp;&nbsp;&nbsp; </b></label>
-&nbsp;<asp:TextBox runat="server" ID="txt_password" TextMode="Password" placeholder="Enter Password" OnTextChanged="txt_password_TextChanged1"></asp:TextBox>
-            <asp:Button runat="server" ID="btn_Login" CssClass="lgnbtn" Text="Login" OnClick="btn_Login_Click1" />
-            <asp:Button runat="server" ID="btn_cancel" Text="Cancel" class="cnbtn" OnClick="btn_cancel_Click1" />
-            <asp:Label ID="Label1"  Style="padding-left:4vw; padding-top:2vw;" Font-Size="Medium" ForeColor="Red"   runat="server" Text="Label"></asp:Label>
-
+    <form id="form1" runat="server" class="form-wrap">
+        <div>
+            <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged"></asp:GridView>
         </div>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="SELECT * FROM [Faculty]"></asp:SqlDataSource>
     </form>
-    </body>
+</body>
 </html>

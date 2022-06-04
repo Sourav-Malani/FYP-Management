@@ -1,11 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ChooseSupervisor.aspx.cs" Inherits="FYP_Committee_ChooseSupervisor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Student_Interface.aspx.cs" Inherits="Student_Student_Interface" %>
+
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Choose Supervisors</title>
-   <style>
+    <title>Student Inteface</title>
+    <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -75,7 +76,29 @@
             margin: auto;
             width: 40%;
         }
-
+        #txt_fullname{
+            border-radius: 12px;
+            padding: 20px; 
+            width: 200px;
+            height: 15px; 
+            text-align:center;
+        }
+        #txt_password{
+            border-radius: 12px;
+            padding: 20px; 
+            width: 200px;
+            height: 15px; 
+            text-align:center;
+            font-family:sans-serif;
+        }
+        #txt_rollno{
+            border-radius: 12px;
+            padding: 20px; 
+            width: 200px;
+            height: 15px; 
+            text-align:center;
+            font-family:sans-serif;
+        }
         
     </style>
     <style>
@@ -90,22 +113,20 @@
 
         }
         .form-wrap{
-            width:750px;
-            height:750px;
+            width:500px;
             background:#ffffff;
             padding: 30px 20px;
             position:center;
             display:block;
-            margin:30px auto;
+            margin:10px auto;
             border-radius:25px;
             box-shadow:0 0 15px #808080;
         }
-        h1{
+        h2{
             text-align:center;
             color:#0C64F7;
-            font-weight:lighter;
-            margin-block:10px;
-            font-family:sans-serif;
+            font-weight:normal;
+            margin-block:20px;
         }
         h3{
             font-family:sans-serif;
@@ -122,26 +143,6 @@
             margin-block:20px;
         }
     </style>
-
-
-    <script src ="../swalert.js" type="text/javascript"> </script>
-    <script>
-        function emptyValue() {
-            Swal.fire(
-                'Some Fields Empty!',
-                'Please Fill all the fields!',
-                'error'
-            )
-        }
-        function AllSet() {
-            Swal.fire(
-                'Data added.',
-                'You can go back.',
-                'success'
-            )
-
-        }
-    </script>
     <style>
         .select{
             padding:8px 12px;
@@ -150,7 +151,7 @@
             border: 1px solid #808080;
             cursor: pointer;
             border-radius: 5px;
-            text-align:center;
+
             /* Replace default string (arrow) */  
             
         }
@@ -165,32 +166,32 @@
     </style>
 </head>
 <body>
+    <center>
     <form id="form1" runat="server" class="form-wrap">
-        <h1> Choose the group to assign it a Supervisor </h1>
         <div>
-            <p>Group No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;             Supervisor</p>
-            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="select" DataSourceID="studentsWithoutSupervisor" DataTextField="Project Title" DataValueField="groupID"></asp:DropDownList>
-            <asp:SqlDataSource ID="studentsWithoutSupervisor" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="SELECT SG.groupID,
-       SG.Member1rollNo,S1.studentName as 'student1  Name',
-	   SG.Member2rollNo, S2.studentName as 'student2 Name',
-	   SG.Member3rollNo, S3.studentName as 'Studen3  Name',
-	   SG.supervID, SN.facultyName as 'Supervisor Name',
-	   SG.co_supervID, CSN.facultyName as 'Co_Supervisor',
-	   SG.projectTitle as 'Project Title',
-	   SG.projectDetails as 'Project Desc.'
-FROM FYP1 FYP1
-    LEFT OUTER JOIN studentGroup SG ON FYP1.groupID = SG.groupID 
-    LEFT OUTER JOIN supervisors SV ON SG.supervID  = SV.supervisorID
-    LEFT OUTER JOIN Faculty SN ON   SG.supervID= SN.facultyID
-    LEFT OUTER JOIN Faculty CSN ON   SG.co_supervID= CSN.facultyID
-    LEFT OUTER JOIN student S1 ON SG.Member1rollNo  = S1.studentRollNo
-    LEFT OUTER JOIN student S2 ON SG.Member2rollNo  = S2.studentRollNo
-    LEFT OUTER JOIN student S3 ON SG.Member3rollNo  = S3.studentRollNo
-WHERE (SG.supervID is NULL)	"></asp:SqlDataSource>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:DropDownList ID="DropDownList2" runat="server" CssClass="select"></asp:DropDownList>
-
         </div>
+        <p>
+            WELLCOME, Student<br>
+        
+            Choose the action  <asp:DropDownList ID="DropDownList1" runat="server" class="select" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                <asp:ListItem disabled Selected>ACTIONS</asp:ListItem>
+                
+                <asp:ListItem>View Project Details</asp:ListItem>
+                <asp:ListItem>View Project Details</asp:ListItem>
+
+            </asp:DropDownList>
+        
+            
+        
+            <br><br> 
+            <asp:Button ID="Button1" runat="server" Text="Continue"  class="sgnbtn" OnClick="Continue_Click" Width="157px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Text="Go Back"  class="cnbtn" OnClick="GoBack_Click" Width="157px" />
+
+            <br>
+            
+        </p>
+
     </form>
+
 </body>
 </html>

@@ -1,12 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Data;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
 using System.Data.SqlClient;
-using System.Configuration;
 
 public partial class StudentLogin : System.Web.UI.Page
 {
@@ -42,8 +46,13 @@ public partial class StudentLogin : System.Web.UI.Page
 
         SqlDataReader sdr = cmd.ExecuteReader();
 
+       
         if (sdr.Read()) {
-            Label1.Text = "Login Successfull";
+            //Label1.Text = "Login Successfull";
+            Session["UN"] = txt_Username.Text;
+            //Session["LN"] = txtLN.Text;
+            Response.Redirect("StudentInterface.aspx");
+
             //Response.Redirect("")
         }
         else
@@ -54,4 +63,14 @@ public partial class StudentLogin : System.Web.UI.Page
     }
 
 
+
+    protected void txt_Username_TextChanged1(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void txt_password_TextChanged1(object sender, EventArgs e)
+    {
+
+    }
 }
