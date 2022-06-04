@@ -7,113 +7,13 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web.UI.HtmlControls;
 
 public partial class Default2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
-        //SqlConnection con = new SqlConnection(connection);
-        try
-        {
-            DataTable dt = new DataTable();
-            //Sql query              
-            string query = "SELECT groupID, projectTitle FROM studentGroup WHERE groupID NOT IN (SELECT Group_Assigned FROM Panel)";
-            string query1 = "SELECT facultyID,facultyName FROM Faculty WHERE facultyID NOT IN (SELECT M_ID FROM FYP_Committee_Member)";
-            //Execute the query
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            con.Open();
-            da.Fill(dt);
-            //Bind the dropdown             
-            DropDownList1.DataSource = dt;
-            DropDownList1.DataTextField = "projectTitle";
-            DropDownList1.DataValueField = "groupID";
-            DropDownList1.DataBind();
-            //------------Set the default value-------------
-            DropDownList1.Items.Insert(0, new ListItem("--Select Group--", "0"));
 
-        }
-        catch
-        {
-        }
-        finally
-        {
-            con.Close();
-        }
-
-        con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
-        //SqlConnection con = new SqlConnection(connection);
-        try
-        {
-            DataTable dt = new DataTable();
-            //Sql query              
-            string query = "SELECT facultyID, facultyName FROM Faculty WHERE facultyID NOT IN (SELECT PM_ID FROM PanelMember)";
-            //string query1 = "SELECT facultyID,facultyName FROM Faculty WHERE facultyID NOT IN (SELECT M_ID FROM FYP_Committee_Member)";
-            //Execute the query
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            con.Open();
-            da.Fill(dt);
-            //Bind the dropdown             
-            DropDownList2.DataSource = dt;
-            DropDownList2.DataTextField = "facultyName";
-            DropDownList2.DataValueField = "facultyID";
-            DropDownList2.DataBind();
-            //------------Set the default value-------------
-            DropDownList1.Items.Insert(0, new ListItem("--Select Panel Member 1--", "0"));
-
-        }
-        catch
-        {
-        }
-        finally
-        {
-            con.Close();
-        }
-
-        con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
-        //SqlConnection con = new SqlConnection(connection);
-        try
-        {
-            //DataTable dt = new DataTable();
-            //Sql query              
-            string query = "SELECT facultyID, facultyName FROM Faculty WHERE facultyID NOT IN (SELECT PM_ID FROM PanelMember) and (facultyID!=@facuty_ID)";
-
-            //string cmdstr = "select * from Report where InstituteId=@InstituteId";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.Add(new SqlParameter("@facuty_ID", DropDownList2.Text));  
-            SqlDataAdapter adp = new SqlDataAdapter(cmd);
-
-            DataTable dt = new DataTable();
-            adp.Fill(dt);
-
-           // //adap.fill(dt);
-           // //adp.SelectCommand.Parameters.Add("@InstituteId", Session["InstituteId"])           
-
-
-
-           // //string query1 = "SELECT facultyID,facultyName FROM Faculty WHERE facultyID NOT IN (SELECT M_ID FROM FYP_Committee_Member)";
-           // //Execute the query
-           // SqlDataAdapter da = new SqlDataAdapter(query, con);
-           // da.SelectCommand.Parameters.Add("@facuty_ID");
-           ////     a("@facuty_ID",)
-           // con.Open();
-           // da.Fill(dt);
-            //Bind the dropdown             
-            DropDownList3.DataSource = dt;
-            DropDownList3.DataTextField = "facultyName";
-            DropDownList3.DataValueField = "facultyID";
-            DropDownList3.DataBind();
-            //------------Set the default value-------------
-            DropDownList1.Items.Insert(0, new ListItem("--Select Panel Member 1--", "0"));
-
-        }
-        catch
-        {
-        }
-        finally
-        {
-            con.Close();
-        }
 
     }
 
@@ -125,5 +25,71 @@ public partial class Default2 : System.Web.UI.Page
     protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    protected void btn_createPanel(object sender, EventArgs e)
+    {
+        String Facultymember1ID = DropDownList2.SelectedValue;
+        String Facultymember2ID = DropDownList3.SelectedValue;
+        String Facultymember3ID = DropDownList4.SelectedValue;
+        String Facultymember4ID = DropDownList5.SelectedValue;
+        String Facultymember5ID = DropDownList6.SelectedValue;
+        String Facultymember6ID = DropDownList7.SelectedValue;
+
+        String groupNo = DropDownList1.SelectedItem.Value;
+        //int gNO = groupNo
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["FYP_MConnectionString"].ConnectionString);
+        con.Open();
+
+        if (Facultymember1ID == "--Select Panel Member 1--" || Facultymember2ID == "--Select Panel Member 2--" ||
+           Facultymember3ID == "--Select Panel Member 3--" || Facultymember4ID == "--Select Panel Member 4--" ||
+           Facultymember5ID == "--Select Panel Member 5--" || Facultymember4ID == "--Select Panel Member 6--")
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "emptyValue()", true);
+
+        }
+        else{
+
+            String query = "insert into PanelMember values('" + Facultymember1ID + "'),('" + Facultymember2ID + "'),('" + Facultymember3ID + "'),('" + Facultymember4ID + "')" +
+                           ",('" + Facultymember5ID + "'),('" + Facultymember6ID + "')";
+
+            SqlCommand cm = new SqlCommand(query, con);
+            cm.ExecuteNonQuery();
+            cm.Dispose();
+
+        }
+
+        if (groupNo != "Select Group")
+        {
+            String query1 = "INSERT INTO PANEL(PanelMember1ID, PanelMember2ID, PanelMember3ID, PanelMember4ID, PanelMember5ID, PanelMember6ID, Group_Assigned)" +
+                             "VALUES('"+ Facultymember1ID+ "', '" + Facultymember2ID + "', '" + Facultymember3ID + "', '" + Facultymember4ID + "', '" + Facultymember5ID + "', '" + Facultymember6ID + "'," +
+                             " '" + groupNo + "')";
+
+            SqlCommand cm = new SqlCommand(query1, con);
+            cm.ExecuteNonQuery();
+            cm.Dispose();
+
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "AllSet()", true);
+
+            HtmlMeta meta = new HtmlMeta();
+            meta.HttpEquiv = "Refresh";
+            meta.Content = "2;url=CreatePanel.aspx"; // wait 2 seconds and the reload.
+            this.Page.Controls.Add(meta);
+
+
+
+
+        }
+
+        con.Close();
+
+
+
+    }
+
+    protected void btn_GoBack(object sender, EventArgs e)
+    {
+        // Go back
+        Response.Redirect("Committee_Interface.aspx");
     }
 }

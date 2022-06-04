@@ -206,14 +206,14 @@
     <script>
     function emptyValue() {
         Swal.fire(
-            'Some Fields Empty!',
-            'Please Fill all the fields!',
+            'Oops!',
+            'Please Select a faculty Member!',
             'error'
         )
     }
     function AllSet() {
         Swal.fire(
-            'Data added.',
+            'Member added to FYP Committee.',
             'You can go back.',
             'success'
         )
@@ -228,8 +228,14 @@
             <br />
             <p class="auto-style2">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:DropDownList ID="DropDownList2" runat="server"  OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged1" class="select" >
+            <asp:DropDownList appendDataBoundItems="true" ID="DropDownList2" runat="server"  OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged1" class="select" DataSourceID="SqlDataSource1" DataTextField="facultyName" DataValueField="facultyID" >
+                <asp:ListItem>--Select Faculty--</asp:ListItem>
             </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="SELECT facultyID, facultyName
+FROM Faculty
+WHERE facultyID NOT IN
+     (SELECT M_ID 
+     FROM FYP_Committee_Member)"></asp:SqlDataSource>
                 </p>
             <br />
             <asp:Button ID="Button1" runat="server" Text="Add" CssClass="auto-style4" OnClick="Button1_Click" Width="191px" />

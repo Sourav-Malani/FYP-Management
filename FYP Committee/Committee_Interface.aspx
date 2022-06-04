@@ -180,7 +180,6 @@
                 <asp:ListItem>Create Committee</asp:ListItem>
                 <asp:ListItem>Make a Panel</asp:ListItem>
                 <asp:ListItem>View Students in FYP1</asp:ListItem>
-                <asp:ListItem Value="Make Panel">Make Panel</asp:ListItem>
                 <asp:ListItem>Choose Supervisor</asp:ListItem>
             </asp:DropDownList>
         

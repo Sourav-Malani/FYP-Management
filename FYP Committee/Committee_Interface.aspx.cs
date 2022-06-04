@@ -52,7 +52,7 @@ public partial class Committee_Interface : System.Web.UI.Page
         }
         else if (selecteditem == "Make a Panel")
         {
-            Response.Redirect(".aspx");
+            Response.Redirect("CreatePanel.aspx");
         }
 
 
