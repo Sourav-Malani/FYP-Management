@@ -14,7 +14,7 @@ public partial class Student_Student_Interface : System.Web.UI.Page
 
     protected void GoBack_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("")
     }
 
     protected void Continue_Click(object sender, EventArgs e)
