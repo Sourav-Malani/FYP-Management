@@ -89,7 +89,6 @@ public partial class Student_Details : System.Web.UI.Page
 
         GridView1.DataBind();
 
-        GridView1.DataBind();
         //if (sdr.Read())
         //{
         //   // Label1.Text = "Login Successfull";

@@ -129,12 +129,25 @@
             font-weight:normal;
             margin-block:20px;
         }
+        .auto-style1 {
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            border-style: none;
+            border-color: inherit;
+            border-width: medium;
+            margin: 8px 0;
+            padding: 14px 20px;
+            background-color: #808080;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server" class="form-wrap">
         <div>
             <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged"></asp:GridView>
+            <asp:Button ID="Button1" runat="server" Text="Go back" CssClass="auto-style1" OnClick="Button1_Click" Width="234px" />
+
         </div>
     </form>
 </body>

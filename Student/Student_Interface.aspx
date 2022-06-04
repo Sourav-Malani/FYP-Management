@@ -177,7 +177,7 @@
                 <asp:ListItem disabled Selected>ACTIONS</asp:ListItem>
                 
                 <asp:ListItem>View Project Details</asp:ListItem>
-                <asp:ListItem>View Project Details</asp:ListItem>
+                <asp:ListItem>See Review</asp:ListItem>
 
             </asp:DropDownList>
         

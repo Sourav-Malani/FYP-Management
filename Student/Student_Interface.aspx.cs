@@ -19,6 +19,16 @@ public partial class Student_Student_Interface : System.Web.UI.Page
 
     protected void Continue_Click(object sender, EventArgs e)
     {
+        string selecteditem = DropDownList1.SelectedItem.Text;
+
+        if (selecteditem == "View Project Details")
+        {
+            Response.Redirect("StudentDetails.aspx");
+        }
+        else if (selecteditem == "See Review")
+        {
+            Response.Redirect("studentReview.aspx");
+        } 
 
     }
 

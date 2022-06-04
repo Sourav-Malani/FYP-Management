@@ -51,7 +51,7 @@ public partial class StudentLogin : System.Web.UI.Page
             //Label1.Text = "Login Successfull";
             Session["UN"] = txt_Username.Text;
             //Session["LN"] = txtLN.Text;
-            Response.Redirect("StudentInterface.aspx");
+            Response.Redirect("Student_Interface.aspx");
 
             //Response.Redirect("")
         }
