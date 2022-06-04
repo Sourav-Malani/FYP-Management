@@ -54,6 +54,10 @@ public partial class Committee_Interface : System.Web.UI.Page
         {
             Response.Redirect("CreatePanel.aspx");
         }
+        else if(selecteditem == "Choose Supervisor")
+        {
+
+        }
 
 
     }

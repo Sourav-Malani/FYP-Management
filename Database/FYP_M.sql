@@ -6,8 +6,28 @@ create table Faculty(
     facultypassword  varchar(30) NOT NULL,
 	facultyGender varchar(7) default  null
 );
--- insert into Faculty values('Hassan Mustafa','hassan.mustafa','Mustafa@123','Male');
+insert into Faculty values('Hassan Mustafa','hassan.mustafa','Mustafa@123','Male');
 select * from Faculty;
+insert into Faculty values
+('Hassan Mujtaba','hassan.mujtaba','hassanmujtaba@123','Male'),
+('Aftab Maroof','aftab.maroof','aftab.maroof@123','Male'),
+('Muhammad Aleem','muhammad.aleem','muhammadaleem@123','Male'),
+('Uzair Khan','uzair.khan','uzairkhan@123','Male'),
+('Ejaz Ahmed','ejaz.ahmed','ejazahmed@123','Male'),
+('Kashif Munir','kashif.muneer','kashifmuneer@123','Male'),
+('Labiba Fahad','labiba.fahad','labibafahad@123','Female'),
+('Amna Irum','amna.irum','amnairum@123','Female'),
+('Khubaib Amjad','khubaib.amjad','khubaibamjad@123','Male'),
+('Adnan Tariq','adnan.tariq','adnantariq@123','Male'),
+('Omer Ishaq','omer.ishaq','omer.ishaq@123','Male'),
+('Shujaat Hussain','shujaat.hussain','shujaathussain@123','Male'),
+('Mehreen Alam','mehreen.alam','mehreenalam@123','Female'),
+('Amna Basharat','amna.basharat','amnabasharat@123','Female'),
+('Saba Rasheed','saba.rasheed','sabarasheed@123','Female'),
+('Faisal Cheema','Faisal.Cheema','faisalcheema@123','Male'),
+('Subhan Ullah','subhan.ullah','subhanullah@123','Male'),
+('Zainab Abaid','zainab.abaid','zainababaid@123','Female'),
+('Mudassar Aslam','mudassar.aslam','mudassaraslam@123','Male')
 
 delete from Faculty where facultyID='i20-0689';
 -- insert more faculty...
@@ -15,7 +35,7 @@ delete from Faculty where facultyID='i20-0689';
 create table FYP_Committee_Member(
       M_ID varchar (30) foreign key references Faculty(facultyID) unique,  
 );
--- drop table FYP_Committee_Member;
+drop table FYP_Committee_Member;
 select * from FYP_Committee_Member;
 
 --SELECT FYPM.M_ID
@@ -29,11 +49,19 @@ select * from FYP_Committee_Member;
 --    LEFT OUTER JOIN studentGroup SG ON FYP1.groupID = SG.groupID
 
 SELECT * from Faculty;
+select * from FYP_Committee_Member;
+insert into FYP_Committee_Member values('adnan.tariq');
+-- Faculty members not in FYP Committee. -- (1)
 SELECT facultyID
 FROM Faculty
 WHERE facultyID NOT IN
      (SELECT M_ID 
      FROM FYP_Committee_Member)
+
+select * from PanelMember;
+
+
+
 
 insert into FYP_Committee_Member values
 ('zohaib.iqbal'),
@@ -117,6 +145,7 @@ create table studentGroup(
 );
 
 drop table studentGroup;
+select * from student;
 
 insert into studentGroup(Member1rollNo,Member2rollNo,supervID,projectTitle) values ('i19-0434','i19-0498','urooj.ghani','Indoor Navigation');
 
@@ -124,6 +153,9 @@ insert into studentGroup(Member1rollNo,Member2rollNo,supervID,projectTitle) valu
 
 select * from studentGroup; -- Write an query to also show names of the students.
 
+-- Groups without any supervisors
+select groupID FROM
+WHERE (co_supervID IS NULL) 
 
 
 
@@ -156,6 +188,8 @@ create table PanelMember(
 );
 drop table PanelMember 
 Select * from PanelMember;
+
+-- delete from PanelMember;
 insert into PanelMember values
 ('ahmedraza.shahid'),
 ('hammad.majeed'),
@@ -165,7 +199,7 @@ insert into PanelMember values
 ('naveed.ahmed');
 
 create table panel(
-    PanelID varchar(20) primary key,
+    PanelID int primary key identity(1,1),
     PanelMember1ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 1
 	PanelMember2ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 2
 	PanelMember3ID varchar(30) foreign key references PanelMember(PM_ID) NOT NULL unique, -- Panel  member 3
@@ -175,11 +209,33 @@ create table panel(
     Group_Assigned int foreign key references studentGroup(groupID)
 );
 drop table panel;
+
 INSERT INTO PANEL
-(PanelID,PanelMember1ID,PanelMember2ID,PanelMember3ID,PanelMember4ID,PanelMember5ID,PanelMember6ID,Group_Assigned)
-VALUES(1,'ahmedraza.shahid','hammad.majeed','hassan.mustafa','irum.inayat','muhammad.asim','naveed.ahmed',1);
+(PanelMember1ID,PanelMember2ID,PanelMember3ID,PanelMember4ID,PanelMember5ID,PanelMember6ID,Group_Assigned)
+VALUES('ahmedraza.shahid','hammad.majeed','hassan.mustafa','irum.inayat','muhammad.asim','naveed.ahmed',1);
 select * from panel;
 
+INSERT INTO PANEL
+(PanelID,PanelMember1ID,PanelMember2ID,PanelMember3ID,PanelMember4ID,PanelMember5ID,PanelMember6ID,Group_Assigned)
+VALUES('ahmedraza.shahid','hammad.majeed','hassan.mustafa','irum.inayat','muhammad.asim','naveed.ahmed',1);
+
+--  to make a panel, first you take faculty members not in any panel.
+--  and you take groups, which does not have any panel assigned.
+-- groups, which does not have any panel assigned.  -- (2)
+SELECT groupID,projectTitle
+FROM studentGroup
+WHERE groupID NOT IN
+     (SELECT Group_Assigned 
+     FROM Panel)
+
+-- Faculty members not in Panel.  -- (2)
+SELECT facultyID
+FROM Faculty
+WHERE facultyID NOT IN
+     (SELECT PM_ID 
+      FROM PanelMember) and (facultyID!='adnan.tariq') and (facultyID!='aftab.maroof')
+
+-- Faculty members  
 
 --SELECT SYSDATETIME()  
 --    ,SYSDATETIMEOFFSET()  
@@ -194,7 +250,7 @@ insert into FYP1(groupID) values (1);
 select * from FYP1;
 
 
--- Student details who are regestered in FYP1
+-- Student details who are regestered in FYP1 and does not have any supervisors.
 SELECT SG.groupID,
        SG.Member1rollNo,S1.studentName as 'student1  Name',
 	   SG.Member2rollNo, S2.studentName as 'student2 Name',
@@ -211,6 +267,7 @@ FROM FYP1 FYP1
     LEFT OUTER JOIN student S1 ON SG.Member1rollNo  = S1.studentRollNo
     LEFT OUTER JOIN student S2 ON SG.Member2rollNo  = S2.studentRollNo
     LEFT OUTER JOIN student S3 ON SG.Member3rollNo  = S3.studentRollNo
+WHERE (SG.supervID is NULL)	
 
 
 create PROCEDURE ShowStudentsRegesteredInFYP1
@@ -235,6 +292,19 @@ FROM FYP1 FYP1
     LEFT OUTER JOIN student S3 ON SG.Member3rollNo  = S3.studentRollNo
 END
 
+
+create PROCEDURE FacultyMembersNotInPanel
+AS
+BEGIN
+-- Faculty members not in Panel.  -- (2)
+SELECT facultyID,facultyName
+FROM Faculty
+WHERE facultyID NOT IN
+     (SELECT PM_ID 
+      FROM PanelMember)
+END
+
+--drop procedure FacultyMembersNotInPanel;
 --create table studentProjects(
 --   projectID varchar(30) primary key
 --);
