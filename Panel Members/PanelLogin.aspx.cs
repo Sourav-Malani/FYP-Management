@@ -67,6 +67,6 @@ public partial class Panel_PanelLogin : System.Web.UI.Page
 
     protected void btn_cancel_Click2(object sender, EventArgs e)
     {
-
+        Response.Redirect("~\\Default.aspx");
     }
 }

@@ -36,7 +36,7 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
 
 
         string facultyID = Session["ID"].ToString(); //  get panel Member ID  
-        string facultyID = "adnan.tariq";
+        //string facultyID = "adnan.tariq";
         SqlConnection con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
         con.Open();
         SqlCommand cm;
