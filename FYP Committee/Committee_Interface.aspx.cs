@@ -32,8 +32,11 @@ public partial class Committee_Interface : System.Web.UI.Page
     protected void Continue_Click(object sender, EventArgs e)
     {
         string selecteditem = DropDownList1.SelectedItem.Text;
-
-        if (selecteditem == "Add Student")
+        if(selecteditem == "ACTIONS")
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "emptyValue()", true);
+        }
+        else if (selecteditem == "Add Student")
         {
             Response.Redirect("AddStudent.aspx");
 
@@ -56,7 +59,7 @@ public partial class Committee_Interface : System.Web.UI.Page
         }
         else if(selecteditem == "Choose Supervisor")
         {
-
+            Response.Redirect("ChooseSupervisor.aspx");
         }
 
 
