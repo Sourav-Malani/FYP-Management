@@ -36,7 +36,7 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
 
 
         string facultyID = Session["ID"].ToString(); //  get panel Member ID  
-        //string facultyID = "adnan.tariq";
+        //string facultyID = "khubaib.amjad";
         SqlConnection con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
         con.Open();
         SqlCommand cm;
@@ -44,12 +44,19 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
         //TextBox txtImageName = (TextBox)Page.FindControl("message1");
         //string strFromTextArea = txtImageName.Text;
 
-        string reviewORsuggestion = Request.Form["message1"]; //review or suggestion
+        string reviewORsuggestion = message1.Text; //review or suggestion
 
         String query = "insert into reviewsORsuggestions(review, givenORnot) values('" + reviewORsuggestion + "', 1)";
         cm = new SqlCommand(query, con);
         cm.ExecuteNonQuery(); // insert review.
         cm.Dispose();
+
+        SqlCommand cmd = new SqlCommand("getLastReviewID", con);
+        string reviewID = Convert.ToString(cmd.ExecuteScalar());
+        int reviewID_INT = int.Parse(reviewID);
+
+        //getLastReviewID
+
 
         //DropDownList1.Items.Insert(0, new ListItem("--Select Customer--", "0"));
         // is any item is not entered.
@@ -76,7 +83,7 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
             int item7 = int.Parse(RadioButtonList7.SelectedItem.Text);
             int item8 = int.Parse(RadioButtonList8.SelectedItem.Text);
             int item9 = int.Parse(RadioButtonList9.SelectedItem.Text);
-            int item10 = int.Parse(RadioButtonList10.SelectedItem.Text);
+            int item10 =int.Parse(RadioButtonList10.SelectedItem.Text);
 
             int item11 = int.Parse(RadioButtonList11.SelectedItem.Text);
             int item12 = int.Parse(RadioButtonList12.SelectedItem.Text);
@@ -84,11 +91,13 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
             int item14 = int.Parse(RadioButtonList14.SelectedItem.Text);
             int item15 = int.Parse(RadioButtonList15.SelectedItem.Text);
 
-            SqlCommand cmd = new SqlCommand("getLastReviewID", con);
-            //cmd.Parameters.AddWithValue("@supID", supervisorSelected);
 
-            string reviewID = Convert.ToString(cmd.ExecuteScalar());
-            int reviewID_INT = int.Parse(reviewID);
+            cmd = new SqlCommand("getStudentFYP1_ID_PM @PM_ID", con);
+            cmd.Parameters.AddWithValue("@PM_ID", facultyID);
+            string FYP_1_ID = Convert.ToString(cmd.ExecuteScalar());
+            int FYP_1_ID_INT = int.Parse(FYP_1_ID);
+
+            //getStudentFYP1_ID '18I-0689'
 
             query = "insert into studentEvaluation values('" + facultyID + "'," + item1 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "" +
                 "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + item2 + "," + +reviewID_INT + ") ";
@@ -96,6 +105,19 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
             cm.ExecuteNonQuery();
             cm.Dispose();
 
+            string connectionString = "Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True";
+
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = connection.CreateCommand())
+            {
+                command.CommandText = "UPDATE FYP1 SET reviewOrSuggestion = @reviewID WHERE FYP1_ID = @FYP1_ID";
+                command.Parameters.AddWithValue("@reviewID", reviewID_INT);
+                command.Parameters.AddWithValue("@FYP1_ID", FYP_1_ID_INT);
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
             ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "AllSet()", true);
         }
     }
@@ -168,5 +190,10 @@ public partial class Panel_Members_EvaluateGroup : System.Web.UI.Page
     protected void Button2_Click1(object sender, EventArgs e)
     {
         Response.Redirect("~\\Default.aspx");
+    }
+
+    protected void message1_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }

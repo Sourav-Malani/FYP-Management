@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="StudentDetails.aspx.cs" Inherits="Student_Details" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MakeSupervisor.aspx.cs" Inherits="FYP_Committee_MakeSupervisor" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-   <style>
+    <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -19,6 +19,7 @@
             display: inline-block;
             border: 1px solid #ccc;
             box-sizing: border-box;
+
         }
         button:hover {
             opacity: 0.8;
@@ -34,7 +35,8 @@
             border-radius: 8px;
 
         }
-        .lgnbtn {
+
+        .sgnbtn {
             background-color: #0C64F7;
             color: white;
             padding: 14px 20px;
@@ -73,20 +75,6 @@
             margin: auto;
             width: 40%;
         }
-        #txt_Username{
-            border-radius: 12px;
-            padding: 20px; 
-            width: 200px;
-            height: 15px; 
-        }
-        #txt_password{
-            border-radius: 12px;
-            padding: 20px; 
-            width: 200px;
-            height: 15px; 
-
-        }
-        
     </style>
     <style>
         *{
@@ -100,20 +88,22 @@
 
         }
         .form-wrap{
-            width:500px;
+            width:750px;
+            height:750px;
             background:#ffffff;
             padding: 30px 20px;
             position:center;
             display:block;
-            margin:10px auto;
+            margin:30px auto;
             border-radius:25px;
             box-shadow:0 0 15px #808080;
         }
         h2{
             text-align:center;
             color:#0C64F7;
-            font-weight:normal;
-            margin-block:20px;
+            font-weight:lighter;
+            margin-block:10px;
+            font-family:sans-serif;
         }
         h3{
             font-family:sans-serif;
@@ -129,63 +119,82 @@
             font-weight:normal;
             margin-block:20px;
         }
-        .auto-style1 {
-            color: white;
-            cursor: pointer;
-            border-radius: 8px;
-            border-style: none;
-            border-color: inherit;
-            border-width: medium;
-            margin: 8px 0;
-            padding: 14px 20px;
-            background-color: #808080;
-        }
     </style>
+
+
+    <script src ="../swalert.js" type="text/javascript"> </script>
+    <script>
+        function emptyValue() {
+            Swal.fire(
+                'Some Fields Empty!',
+                'Please Fill all the fields!',
+                'error'
+            )
+        }
+        function WorkLoad() {
+            Swal.fire(
+                'Oops!',
+                'Work load of supervisor is not available!',
+                'error'
+            )
+        }
+
+        function AllSet() {
+            Swal.fire(
+                'Data added.',
+                'You can go back.',
+                'success'
+            )
+
+        }
+    </script>
     <style>
-        .styled-table {
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.9em;
-            font-family: sans-serif;
-            min-width: 400px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        .select{
+            padding:8px 12px;
+            color:#333333;
+            
+            border: 1px solid #808080;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align:center;
+            /* Replace default string (arrow) */  
+            
         }
-        .styled-table thead tr {
-            background-color: #009879;
-            color: #ffffff;
-            text-align: left;
+        .select:focus,
+        .select:hover{
+            outline:none;
+            border: 1px solid #bbbbbb;
         }
-        .styled-table th,
-        .styled-table td {
-            padding: 12px 15px;
+        .select option{
+            background: white;
         }
-        .styled-table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-
-        .styled-table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-
-        .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
-        }
-        .styled-table tbody tr.active-row {
-            font-weight: bold;
-            color: #009879;
-        }
-    </style>
+        </style>
 </head>
 <body>
-    <form id="form1" runat="server" >
+    <form id="form1" runat="server">
+        
         <div>
+            <center>
+            <h2> To make a faculty member supervisor, Choose facultyID from below</h2>
+            <asp:DropDownList ID="DropDownList1" appendDataBoundItems="True" runat="server" CssClass="select" DataSourceID="FacultyNotSupervisor" DataTextField="facultyID" DataValueField="facultyID">
+            <asp:ListItem>--Select Faculty--</asp:ListItem>
+            </asp:DropDownList>
+                <asp:SqlDataSource ID="FacultyNotSupervisor" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="SELECT facultyID
+FROM Faculty
+WHERE facultyID NOT IN
+     (SELECT supervisorID 
+     FROM supervisors)
+"></asp:SqlDataSource>
+            </center>
         </div>
-        <asp:GridView ID="GridView1" CssClass="styled-table" runat="server"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
-
-        </asp:GridView>
-        <asp:SqlDataSource ID="StudentDetails" runat="server" OnSelecting="StudentDetails_Selecting"></asp:SqlDataSource>
-        <asp:Button ID="Button1" runat="server" Text="Go back" CssClass="auto-style1" OnClick="Button1_Click" Width="320px" />
-
+        <br><br>
+        <div>
+            <center>
+            <asp:Button ID="Button1" runat="server" Text="Button" class="sgnbtn" Width="302px" OnClick="Button1_Click" />
+            &nbsp;
+            <asp:Button ID="Button2" runat="server" Text="Go Back" class="cnbtn" Width="302px" OnClick="Button2_Click" />
+            </center>
+        </div>
     </form>
 </body>
 </html>

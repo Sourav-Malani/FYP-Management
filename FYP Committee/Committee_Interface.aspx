@@ -181,6 +181,11 @@
                 <asp:ListItem>Make a Panel</asp:ListItem>
                 <asp:ListItem>View Students in FYP1</asp:ListItem>
                 <asp:ListItem>Choose Supervisor</asp:ListItem>
+                <asp:ListItem>Make a Supervisor</asp:ListItem>
+                <asp:ListItem>View Transaction History</asp:ListItem>
+                <asp:ListItem>View All Faculty</asp:ListItem>
+                <asp:ListItem>View All Students</asp:ListItem>
+
             </asp:DropDownList>
         
             

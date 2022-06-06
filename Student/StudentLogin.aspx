@@ -134,7 +134,24 @@
             margin-block:20px;
         }
     </style>
-    
+    <script src ="../swalert.js" type="text/javascript"> </script>
+    <script>
+        function Invalid() {
+            Swal.fire(
+                'Oops!',
+                'Wrong info!',
+                'error'
+            )
+        }
+        function EmptyValue() {
+            Swal.fire(
+                'Oops.',
+                'Fields empty',
+                'error'
+            )
+
+        }
+    </script>    
 
 </head>
 <body>
@@ -151,7 +168,6 @@
 &nbsp;<asp:TextBox runat="server" ID="txt_password" TextMode="Password" placeholder="Enter Password" OnTextChanged="txt_password_TextChanged1"></asp:TextBox>
             <asp:Button runat="server" ID="btn_Login" CssClass="lgnbtn" Text="Login" OnClick="btn_Login_Click1" />
             <asp:Button runat="server" ID="btn_cancel" Text="Cancel" class="cnbtn" OnClick="btn_cancel_Click1" />
-            <asp:Label ID="Label1"  Style="padding-left:4vw; padding-top:2vw;" Font-Size="Medium" ForeColor="Red"   runat="server" Text="Label"></asp:Label>
 
         </div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FYP_MConnectionString %>" SelectCommand="SELECT * FROM [Faculty]"></asp:SqlDataSource>

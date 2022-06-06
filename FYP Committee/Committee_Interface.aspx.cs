@@ -61,8 +61,26 @@ public partial class Committee_Interface : System.Web.UI.Page
         {
             Response.Redirect("ChooseSupervisor.aspx");
         }
+        else if(selecteditem == "Make a Supervisor")
+        {
+            Response.Redirect("MakeSupervisor.aspx");
+        }
+        else if(selecteditem == "View Transaction History")
+        {
+            Response.Redirect("TransactionHistory.aspx");
+        }
+        else if (selecteditem == "View All Faculty")
+        {
+            Response.Redirect("ViewAllFaculty.aspx");
+        }
+        else if(selecteditem == "View All Students")
+        {
+            Response.Redirect("ViewAllStudents.aspx");
+        }
+        else if(selecteditem == "Make a supervisor")
+        {
 
-
+        }
     }
 
     protected void GoBack_Click(object sender, EventArgs e)

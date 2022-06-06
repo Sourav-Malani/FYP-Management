@@ -9,14 +9,9 @@ using System.Data;
 using System.Configuration;
 using System.Web.UI.HtmlControls;
 
-public partial class FYP_Committee_Create_Committee : System.Web.UI.Page
+public partial class FYP_Committee_MakeSupervisor : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-    {
-    
-    }
-
-    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
     }
@@ -26,17 +21,17 @@ public partial class FYP_Committee_Create_Committee : System.Web.UI.Page
         SqlConnection con = new SqlConnection("Data Source=UTHPAKHI\\SQLEXPRESS;Initial Catalog=FYP_M;Integrated Security=True");
         con.Open();
         SqlCommand cm;
-        String facultyID = DropDownList2.SelectedValue;
+        String facultyID = DropDownList1.SelectedValue;
 
         //DropDownList1.Items.Insert(0, new ListItem("--Select Customer--", "0"));
         // is any item is not entered.
-        if (facultyID == "--Select Faculty--") // not solved.
+        if (facultyID == "--Select Faculty--") // not selected.
         {
             ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "emptyValue()", true);
         }
         else
         {
-            String query = "insert into FYP_Committee_Member values('"+facultyID+"')";
+            String query = "insert into supervisors(supervisorID) values('" + facultyID + "')";
             cm = new SqlCommand(query, con);
             cm.ExecuteNonQuery();
             cm.Dispose();
@@ -44,28 +39,17 @@ public partial class FYP_Committee_Create_Committee : System.Web.UI.Page
 
             HtmlMeta meta = new HtmlMeta();
             meta.HttpEquiv = "Refresh";
-            meta.Content = "1;url=Create Committee.aspx"; // wait 2 seconds and the reload.
+            meta.Content = "1;url=Committee_Interface.aspx"; // wait 2 seconds and go to the main interface.
             this.Page.Controls.Add(meta);
-            //Label1.Text = "You will now be redirected in 5 seconds";
         }
         con.Close();
 
     }
-    protected void FacultyMembers_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
-    {
 
-    }
+
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        // cancel 
         Response.Redirect("Committee_Interface.aspx");
-    }
-
-
-    protected void DropDownList2_SelectedIndexChanged1(object sender, EventArgs e)
-    {
-
-
     }
 }

@@ -404,7 +404,7 @@
            </div>
             <div class="full-width">
                 Reviews/Suggestions<br/>
-              <textarea id="message1" class="auto-style1"></textarea>
+              <asp:Textbox runat="server" id="message1" class="auto-style1" OnTextChanged="message1_TextChanged"></asp:Textbox>
             </div>
         <asp:Button ID="Button1" runat="server" Text="Submit" class="sgnbtn" OnClick="Button1_Click1"/>
         &nbsp;<asp:Button ID="GoBack" runat="server" Text="Go Back" class="cnbtn" OnClick="Button2_Click1"/>

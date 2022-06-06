@@ -241,7 +241,9 @@ WHERE groupID NOT IN
      (SELECT Group_Assigned 
      FROM Panel)
 "></asp:SqlDataSource>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br/><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:DropDownList  appendDataBoundItems="true" ID="DropDownList2" runat="server"  CssClass="select" DataSourceID="SqlDataSource3" DataTextField="facultyName" DataValueField="facultyID">
                 <asp:ListItem>--Select Panel Member 1--</asp:ListItem>
             </asp:DropDownList>

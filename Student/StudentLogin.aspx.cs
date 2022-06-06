@@ -45,19 +45,24 @@ public partial class StudentLogin : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@password", txt_password.Text);
 
         SqlDataReader sdr = cmd.ExecuteReader();
+        Session["UN"] = txt_Username.Text; // send username to other page.
 
-       
-        if (sdr.Read()) {
-            //Label1.Text = "Login Successfull";
-            Session["UN"] = txt_Username.Text;
-            //Session["LN"] = txtLN.Text;
-            Response.Redirect("Student_Interface.aspx");
+        if (txt_Username.Text == "" || txt_password.Text == "")
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "EmptyValue()", true);
 
-            //Response.Redirect("")
         }
         else
         {
-            Label1.Text = "Wrong Username or password";
+            if (sdr.Read())
+            {
+                Response.Redirect("Student_Interface.aspx");
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "randomtext", "Invalid()", true);
+            }
+
         }
         con.Close();
     }
